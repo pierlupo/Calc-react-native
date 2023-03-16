@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 
 
 
-export default function Ecran() {
+export default function Ecran({firstNumber, secondNumber, operation, result}) {
 
   const [textInput,setTextInput] = useState('')
 
@@ -14,7 +14,7 @@ export default function Ecran() {
 
   return (
     <View style={[styles.screen, styles.elevation]}>
-    <Text>{textInput}</Text>
+    <Text style={styles.displayText} >{secondNumber}{operation}{firstNumber}{result}</Text>
     </View>
   )
 }
@@ -24,12 +24,12 @@ const styles = StyleSheet.create({
     screen: {
 
         width:'auto',
-        height:150,
+        height:210,
         backgroundColor: "#D7D9D7",
         borderBottomWidth: 1,
         borderBottomColor: 'black',
         borderRadius: 5,
-        padding:5
+        padding:5,
         
       },
       elevation: {
@@ -45,4 +45,12 @@ const styles = StyleSheet.create({
         // backgroundColor: '#fff'
 
       },
+      displayText:{
+        fontSize:40,
+        color:"black",
+        fontWeight:"600",
+        alignSelf : "flex-end",
+        paddingRight: 15,
+        marginRight: 20,
+      }
 })

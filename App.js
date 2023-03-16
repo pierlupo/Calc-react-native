@@ -31,13 +31,18 @@ import Ecran from './Ecran.js';
 
 const App = () => {
 
-    const [firstNumber, setFirstNumber] = useState('0')
-    const [secondNumber, setSecondNumber] = useState('0')
-    const [operation, setOperation] = useState('0')
-    const [result, setResult] = useState('0')
+    const [firstNumber, setFirstNumber] = useState('')
+    const [secondNumber, setSecondNumber] = useState('')
+    const [operation, setOperation] = useState('')
+    // const [result, setResult] = useState('')
 
-    function PressTouche() {
-      console.log("j'ai appuyé sur une des touches 'number'");
+function PressTouche(num) {
+      console.log("j'ai appuyé sur une des touches:"+ num);
+      if(firstNumber != "0"){
+      setFirstNumber(firstNumber + num)}
+      else{
+      setFirstNumber(num)
+      }
     }
 
 function OnOff() {
@@ -46,14 +51,40 @@ function OnOff() {
 
 function Clear() {
   console.log("j'ai appuyé sur la touche C");
+  setFirstNumber("")
+  setOperation("")
+  setSecondNumber("")
 }
 
-function operationPress() {
-  console.log("j'ai appuyé sur une des touches d'opé");
+function operationPress(ope) {
+  console.log("j'ai appuyé sur une des touches d'opé"+" "+ope);
+  setOperation(ope)
+  setSecondNumber(firstNumber)
+  setFirstNumber("")
 }
 
 function resultPress() {
-  console.log("j'ai appuyé sur la touche égale");
+  console.log("j'ai appuyé sur la touche égale")
+  console.log("faire opération de "+secondNumber+" "+operation+" "+firstNumber)
+  let resultat;
+  switch(operation){
+    case "+":
+      resultat = parseFloat(firstNumber) + parseFloat(secondNumber);
+      setFirstNumber(secondNumber+" "+"="+" "+resultat)
+      break;
+    case "-":
+      resultat = parseFloat(firstNumber)-parseFloat(secondNumber);
+      setFirstNumber(secondNumber+" "+"="+" "+resultat)
+      break;
+    case "/":
+      resultat = parseFloat(firstNumber)/parseFloat(secondNumber);
+      setFirstNumber(secondNumber+" "+"="+" "+resultat)
+      break;
+    case "*":
+      resultat = parseFloat(firstNumber)*parseFloat(secondNumber);
+      setFirstNumber(secondNumber+" "+"="+" "+resultat)
+      break;
+  }
 }
   return (
     <>
@@ -62,46 +93,51 @@ function resultPress() {
     </View>
     <View style={styles.screenContainer}>
       <View style={styles.calcContainer}>
-      <Ecran></Ecran>
+      <Ecran firstNumber={firstNumber} secondNumber={secondNumber} operation={operation}></Ecran>
         
      
       
       <View style={[styles.btnDisplay, styles.elevation]}>
  
-        <AppButton onPress={OnOff} title="On/Off" isOn />  
+        <AppButton onPress={OnOff} title="AC" isOn />  
         <AppButton onPress={()=> {Clear("C")}} isC title="C" />  
-        <AppButton onPress={()=> {operationPress("^")}} isOp title="^" />
+        <AppButton onPress={()=>{operationPress("%")}} isOp title="%" />  
+        {/* <AppButton onPress={()=> {operationPress("^")}} isOp title="^" /> */}
    
       </View>
       <View style={[styles.btnDisplay,styles.elevation]}>
  
-        <AppButton onPress={PressTouche} title="7" />
-        <AppButton onPress={PressTouche} title="8" />
-        <AppButton onPress={PressTouche} title="9" />
+        <AppButton onPress={()=> {PressTouche("7")}} title="7" />
+        <AppButton onPress={()=> {PressTouche("8")}} title="8" />
+        <AppButton onPress={()=> {PressTouche("9")}} title="9" />
         <AppButton onPress={()=> {operationPress("+")}} isOp title="+" />
 
       </View>
       <View style={[styles.btnDisplay,styles.elevation]}>
-        <AppButton onPress={PressTouche} title="4" />
-        <AppButton onPress={PressTouche} title="5" />
-        <AppButton onPress={PressTouche} title="6" />
+        <AppButton onPress={()=> {PressTouche("4")}} title="4" />
+        <AppButton onPress={()=> {PressTouche("5")}} title="5" />
+        <AppButton onPress={()=> {PressTouche("6")}} title="6" />
         <AppButton onPress={()=> {operationPress("-")}} isOp title="-" />
 
       </View>
       <View style={[styles.btnDisplay,styles.elevation]}>
-        <AppButton onPress={PressTouche} title="1" />
-        <AppButton onPress={PressTouche} title="2" />
-        <AppButton onPress={PressTouche} title="3" />
-        <AppButton onPress={operationPress} isOp title="*" />
+        
+        <AppButton onPress={()=> {PressTouche("1")}} title="1" />
+        <AppButton onPress={()=> {PressTouche("2")}} title="2" />
+        <AppButton onPress={()=> {PressTouche("3")}} title="3" />
+        <AppButton onPress={()=>{operationPress("*")}} isOp title="*" />
       </View>
 
       <View style={[styles.btnDisplay,styles.elevation]}>
-        <AppButton onPress={PressTouche} isOp title="%" />  
-        <AppButton onPress={operationPress} isOp title="/" />
-        <AppButton onPress={PressTouche} isOp title="." />  
+        <AppButton onPress={()=> {PressTouche("0")}} title="0" />  
         <AppButton onPress={resultPress} isC title="=" />
+        <AppButton onPress={()=>{operationPress(".")}} isOp title="." />
+        <AppButton onPress={()=>{operationPress("/")}} isOp title="/" />
       </View>
-      
+      {/* <View style={[styles.btnDisplay,styles.elevation]}>
+      <AppButton onPress={resultPress} isC title="(" />
+      <AppButton onPress={resultPress} isC title=")" />
+      </View> */}
       </View>
     </View>
     </>
@@ -126,6 +162,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
     borderWidth: 5,
     borderRadius: 10,
+    marginBottom:10,
+
   },
 
   btnDisplay: { 
@@ -164,7 +202,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#C9C5CB',
     color: 'black',
     fontSize: 35,
-    marginTop: 20,
+    marginTop: 10,
     padding: 10,
   },
   baseText:{
@@ -174,8 +212,8 @@ const styles = StyleSheet.create({
   titleCont: {
 
     backgroundColor: '#C9C5CB',
-  }
- 
+  },
+
 
 });
   
