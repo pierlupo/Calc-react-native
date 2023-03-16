@@ -3,11 +3,11 @@ import LinearGradient from 'react-native-linear-gradient';
 
 TouchableOpacity.defaultProps = {activeOpacity: 0.5};
 
-const AppButton = ({onPress, title, size, backgroundColor}) => (
+const AppButton = ({onPress, title, size, backgroundColor, isOn, isOp, isC}) => (
   <>
     <TouchableOpacity
       onPress={onPress}
-      style={[
+      style={[isOn ? styles.isOn : isOp ? styles.isOp : isC ? styles.isC :
         styles.appButtonContainer,
         size === 'sm' && {
           paddingHorizontal: 8,
@@ -29,11 +29,12 @@ const styles = StyleSheet.create({
 
     elevation: 20,
     backgroundColor: '#C9C5CB',
-    borderRadius: 10,
+    borderRadius: 70,
     paddingVertical: 10,
     paddingHorizontal: 20,
     margin: 8,
-
+    height: 70,
+    width: 70
   },
   appButtonText: {
     fontSize: 30,
@@ -42,6 +43,39 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     alignSelf: 'center',
     textTransform: 'uppercase',
+  },
+
+  isOn:{
+    elevation: 20,
+    margin: 8,
+    backgroundColor: '#857C8D',
+    borderRadius: 70,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    padding: 5,
+    width: 150,
+    height: 70,
+  },
+
+  isOp:{
+    elevation: 20,
+    backgroundColor: '#94BFBE',
+    borderRadius: 70,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    margin: 8,
+    height: 70,
+    width: 70,
+  },
+  isC:{
+    elevation: 20,
+    backgroundColor: '#857C8D',
+    borderRadius: 70,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    margin: 8,
+    height: 70,
+    width: 70,
   },
 });
 

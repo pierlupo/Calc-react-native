@@ -66,11 +66,11 @@ function resultPress() {
         
      
       
-      <View style={[styles.btnDisplay, styles.elevation,]}>
+      <View style={[styles.btnDisplay, styles.elevation]}>
  
-        <AppButton onPress={OnOff} title="On/Off" />  
-        <AppButton onPress={Clear} title="C" />  
-        <AppButton onPress={operationPress} title="^" />
+        <AppButton onPress={OnOff} title="On/Off" isOn />  
+        <AppButton onPress={()=> {Clear("C")}} isC title="C" />  
+        <AppButton onPress={()=> {operationPress("^")}} isOp title="^" />
    
       </View>
       <View style={[styles.btnDisplay,styles.elevation]}>
@@ -78,28 +78,28 @@ function resultPress() {
         <AppButton onPress={PressTouche} title="7" />
         <AppButton onPress={PressTouche} title="8" />
         <AppButton onPress={PressTouche} title="9" />
-        <AppButton onPress={operationPress} title="+" />
+        <AppButton onPress={()=> {operationPress("+")}} isOp title="+" />
 
       </View>
       <View style={[styles.btnDisplay,styles.elevation]}>
         <AppButton onPress={PressTouche} title="4" />
         <AppButton onPress={PressTouche} title="5" />
         <AppButton onPress={PressTouche} title="6" />
-        <AppButton onPress={operationPress} title="-" />
+        <AppButton onPress={()=> {operationPress("-")}} isOp title="-" />
 
       </View>
       <View style={[styles.btnDisplay,styles.elevation]}>
         <AppButton onPress={PressTouche} title="1" />
         <AppButton onPress={PressTouche} title="2" />
         <AppButton onPress={PressTouche} title="3" />
-        <AppButton onPress={operationPress} title="*" />
+        <AppButton onPress={operationPress} isOp title="*" />
       </View>
 
       <View style={[styles.btnDisplay,styles.elevation]}>
-        <AppButton onPress={PressTouche} title="%" />  
-        <AppButton onPress={operationPress} title="/" />
-        <AppButton onPress={PressTouche} title="." />  
-        <AppButton onPress={resultPress} title="=" />
+        <AppButton onPress={PressTouche} isOp title="%" />  
+        <AppButton onPress={operationPress} isOp title="/" />
+        <AppButton onPress={PressTouche} isOp title="." />  
+        <AppButton onPress={resultPress} isC title="=" />
       </View>
       
       </View>
@@ -135,6 +135,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 5,
    
+  },
+
+  btnDisplayOn: { 
+
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 5,
+    width: 150
+
   },
   elevation: {
 
