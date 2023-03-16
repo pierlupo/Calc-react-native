@@ -14,7 +14,7 @@ export default function Ecran({firstNumber, secondNumber, operation, result}) {
 
   return (
     <View style={[styles.screen, styles.elevation]}>
-    <Text style={styles.displayText} >{secondNumber}{operation}{firstNumber}{result}</Text>
+    <Text style={styles.displayText} >{secondNumber}{operation}{firstNumber}{result == "0" ? ""  : " = "+result}</Text>
     </View>
   )
 }
